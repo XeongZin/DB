@@ -1,4 +1,4 @@
-/*NewBook Å×ÀÌºí »ı¼º*/
+/*NewBook í…Œì´ë¸” ìƒì„±*/
 create table NewBook(
     bookid NUMBER PRIMARY KEY,
     bookname varchar2(20) NOT NULL,
@@ -6,7 +6,7 @@ create table NewBook(
     price NUMBER DEFAULT 10000 CHECK(price > 1000)
 );
 
-/*NewCustomer Å×ÀÌºí »ı¼º*/
+/*NewCustomer í…Œì´ë¸” ìƒì„±*/
 create table NewCustomer(
     custid NUMBER PRIMARY KEY,
     name varchar2(40),
@@ -14,7 +14,7 @@ create table NewCustomer(
     phone varchar2(30)
 );
 
-/*NewOrders Å×ÀÌºí »ı¼º*/
+/*NewOrders í…Œì´ë¸” ìƒì„±*/
 create table NewOrders(
     orderid NUMBER,
     custid NUMBER NOT NULL,
@@ -25,61 +25,61 @@ create table NewOrders(
     FOREIGN KEY(custid) REFERENCES NewCustomer(custid) ON DELETE CASCADE
 );
 
-/*Ä®·³ Ãß°¡ Add*/
+/*ì¹¼ëŸ¼ ì¶”ê°€ Add*/
 alter table NewBook ADD isbn VARCHAR2(13);
 
-/*Ä®·³ ¼öÁ¤ Modify*/
+/*ì¹¼ëŸ¼ ìˆ˜ì • Modify*/
 alter table NewBook MODIFY isbn NUMBER;
 
-/*Ä®·³ »èÁ¦ Drop Column*/
+/*ì¹¼ëŸ¼ ì‚­ì œ Drop Column*/
 alter table NewBook DROP COLUMN isbn;
 
-/*Ä®·³¿¡ Á¦¾àÁ¶°Ç Àû¿ë*/
+/*ì¹¼ëŸ¼ì— ì œì•½ì¡°ê±´ ì ìš©*/
 alter table NewBook Modify bookid NUMBER NOT NULL;
 
-/*Ä®·³ÀÇ ¼Ó¼º ±âº»Å°·Î º¯°æ*/
+/*ì¹¼ëŸ¼ì˜ ì†ì„± ê¸°ë³¸í‚¤ë¡œ ë³€ê²½*/
 alter table NewBook ADD PRIMARY KEY(bookid);
 
-/*Å×ÀÌºí »èÁ¦*/
+/*í…Œì´ë¸” ì‚­ì œ*/
 drop table NewBook;
 
-/*Book Å×ÀÌºí¿¡ »õ·Î¿î µµ¼­ '½ºÆ÷Ã÷ ÀÇÇĞ' »ğÀÔ*/
+/*Book í…Œì´ë¸”ì— ìƒˆë¡œìš´ ë„ì„œ 'ìŠ¤í¬ì¸  ì˜í•™' ì‚½ì…*/
 insert into Book(bookid, bookname, publisher, price)
-values(11, '½ºÆ÷Ã÷ ÀÇÇĞ', 'ÇÑ¼ÖÀÇÇĞ¼­Àû', 90000);
+values(11, 'ìŠ¤í¬ì¸  ì˜í•™', 'í•œì†”ì˜í•™ì„œì ', 90000);
 
-/*Æ©ÇÃ Ãß°¡ ¿©ºÎ È®ÀÎ*/
+/*íŠœí”Œ ì¶”ê°€ ì—¬ë¶€ í™•ì¸*/
 select * from book;
 
-/*Book Å×ÀÌºí¿¡ »õ·Î¿î µµ¼­ '½ºÆ÷Ã÷ ÀÇÇĞ' »ğÀÔ. °¡°İÀº ¹ÌÁ¤*/
+/*Book í…Œì´ë¸”ì— ìƒˆë¡œìš´ ë„ì„œ 'ìŠ¤í¬ì¸  ì˜í•™' ì‚½ì…. ê°€ê²©ì€ ë¯¸ì •*/
 insert into Book(bookid, bookname, publisher)
-values(14, '½ºÆ÷Ã÷ ÀÇÇĞ', 'ÇÑ¼ÖÀÇÇĞ¼­Àû');
+values(14, 'ìŠ¤í¬ì¸  ì˜í•™', 'í•œì†”ì˜í•™ì„œì ');
 
-/*¼öÀÔµµ¼­ ¸ñ·Ï(Imported_Book)À» Book Å×ÀÌºí¿¡ ¸ğµÎ »ğÀÔ*/
-/*»ğÀÔÀü ¼Ó¼ºÀÌ °°ÀºÁö È®ÀÎ*/
+/*ìˆ˜ì…ë„ì„œ ëª©ë¡(Imported_Book)ì„ Book í…Œì´ë¸”ì— ëª¨ë‘ ì‚½ì…*/
+/*ì‚½ì…ì „ ì†ì„±ì´ ê°™ì€ì§€ í™•ì¸*/
 select * from Imported_Book;
 
-/*´ë·® »ğÀÔ (bulk insert)*/
+/*ëŒ€ëŸ‰ ì‚½ì… (bulk insert)*/
 insert into Book(bookid, bookname, publisher, price)
 select bookid, bookname, publisher, price
 from Imported_Book;
 
-/*Æ©ÇÃ º¯°æ ¿©ºÎ È®ÀÎ*/
+/*íŠœí”Œ ë³€ê²½ ì—¬ë¶€ í™•ì¸*/
 select * from Customer;
 
-/*Customer Å×ÀÌºí¿¡¼­ °í°´¹øÈ£°¡ 5ÀÎ °í°´ÀÇ ÁÖ¼Ò¸¦ '´ëÇÑ¹Î±¹ ºÎ»ê'À¸·Î º¯°æÇÏ±â*/
-/*Á¶°Ç*/
+/*Customer í…Œì´ë¸”ì—ì„œ ê³ ê°ë²ˆí˜¸ê°€ 5ì¸ ê³ ê°ì˜ ì£¼ì†Œë¥¼ 'ëŒ€í•œë¯¼êµ­ ë¶€ì‚°'ìœ¼ë¡œ ë³€ê²½í•˜ê¸°*/
+/*ì¡°ê±´*/
 update Customer
-set address='´ëÇÑ¹Î±¹ ºÎ»ê'
+set address='ëŒ€í•œë¯¼êµ­ ë¶€ì‚°'
 where custid=5;
 
-/*ÇÏÀ§ ÁúÀÇ*/
+/*í•˜ìœ„ ì§ˆì˜*/
 update Customer
-set address=(select address from Customer where name='±è¿¬¾Æ')
-where name='¹Ú¼¼¸®';
+set address=(select address from Customer where name='ê¹€ì—°ì•„')
+where name='ë°•ì„¸ë¦¬';
 
-/*Customer Å×ÀÌºí¿¡¼­ °í°´¹øÈ£°¡ 5ÀÎ °í°´À» »èÁ¦*/
+/*Customer í…Œì´ë¸”ì—ì„œ ê³ ê°ë²ˆí˜¸ê°€ 5ì¸ ê³ ê°ì„ ì‚­ì œ*/
 delete from Customer
 where custid=5;
 
-/*RollBackÀ¸·Î º¹±¸*/
+/*RollBackìœ¼ë¡œ ë³µêµ¬*/
 ROLLBACK;
